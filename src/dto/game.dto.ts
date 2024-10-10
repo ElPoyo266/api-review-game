@@ -5,3 +5,14 @@ export interface GameDTO {
   title: string;
   console?: ConsoleDTO;
 }
+
+export interface AddGame {
+    title: string;
+    consoleId: number;
+}
+
+export interface EditGame {
+  id: number;
+  title?: string;
+  consoleId?: number;
+}
