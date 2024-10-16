@@ -1,11 +1,11 @@
-import {AddGame, EditGame, GameDTO} from "../dto/game.dto";
+import {addGameDTO, editGameDTO, gameDTO} from "../dto/gameDTO";
 import { Console } from "../models/console.model";
 import { Game } from "../models/game.model";
 import {consoleService} from "./console.service";
 import {ReviewService} from "./review.service";
 
 export class GameService {
-    public async getAllGames(): Promise<GameDTO[]> {
+    public async getAllGames(): Promise<gameDTO[]> {
         return Game.findAll({
             include: [
                 {
@@ -16,7 +16,7 @@ export class GameService {
         });
     }
 
-    public async getGame(id: number): Promise<GameDTO> {
+    public async getGame(id: number): Promise<gameDTO> {
         const game = await Game.findByPk(id, {
             include: [
                 {
@@ -31,7 +31,7 @@ export class GameService {
         return game;
     }
 
-    public async addGame(game: AddGame): Promise<GameDTO | undefined> {
+    public async addGame(game: addGameDTO): Promise<gameDTO | undefined> {
         if (!game.consoleId) throw new Error("Console is required");
 
         const consoleExists = (await consoleService.getAllConsoles()).some(console => console.id === game.consoleId);
@@ -40,7 +40,7 @@ export class GameService {
         return await Game.create({title: game.title, console_id: game.consoleId});
     }
 
-    public async updateGame(game: EditGame): Promise<GameDTO> {
+    public async updateGame(game: editGameDTO): Promise<gameDTO> {
         const gameToUpdate = await Game.findByPk(game.id);
         if (!gameToUpdate) throw new Error("Game not found");
         if (game.consoleId != null) {

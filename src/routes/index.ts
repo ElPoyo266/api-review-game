@@ -15,7 +15,7 @@ import type { Request as ExRequest, Response as ExResponse, RequestHandler, Rout
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 
 const models: TsoaRoute.Models = {
-    "ReviewDTO": {
+    "reviewDTO": {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"double","required":true},
@@ -26,7 +26,7 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "AddReviewDTO": {
+    "addReviewDTO": {
         "dataType": "refObject",
         "properties": {
             "review_text": {"dataType":"string","required":true},
@@ -36,7 +36,7 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "UpdateReviewDTO": {
+    "updateReviewDTO": {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"double","required":true},
@@ -47,7 +47,7 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "ConsoleDTO": {
+    "consoleDTO": {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"double"},
@@ -57,17 +57,17 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "GameDTO": {
+    "gameDTO": {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"double"},
             "title": {"dataType":"string","required":true},
-            "console": {"ref":"ConsoleDTO"},
+            "console": {"ref":"consoleDTO"},
         },
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "AddGame": {
+    "addGameDTO": {
         "dataType": "refObject",
         "properties": {
             "title": {"dataType":"string","required":true},
@@ -76,12 +76,21 @@ const models: TsoaRoute.Models = {
         "additionalProperties": false,
     },
     // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-    "EditGame": {
+    "editGameDTO": {
         "dataType": "refObject",
         "properties": {
             "id": {"dataType":"double","required":true},
             "title": {"dataType":"string"},
             "consoleId": {"dataType":"double"},
+        },
+        "additionalProperties": false,
+    },
+    // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
+    "addConsoleDTO": {
+        "dataType": "refObject",
+        "properties": {
+            "name": {"dataType":"string","required":true},
+            "manufacturer": {"dataType":"string","required":true},
         },
         "additionalProperties": false,
     },
@@ -168,7 +177,7 @@ export function RegisterRoutes(app: Router) {
 
             async function ReviewController_addReview(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    addReviewDTO: {"in":"body","name":"addReviewDTO","required":true,"ref":"AddReviewDTO"},
+                    addReviewDTO: {"in":"body","name":"addReviewDTO","required":true,"ref":"addReviewDTO"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -198,7 +207,7 @@ export function RegisterRoutes(app: Router) {
 
             async function ReviewController_updateReview(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    updateReviewDTO: {"in":"body","name":"updateReviewDTO","required":true,"ref":"UpdateReviewDTO"},
+                    updateReviewDTO: {"in":"body","name":"updateReviewDTO","required":true,"ref":"updateReviewDTO"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -317,7 +326,7 @@ export function RegisterRoutes(app: Router) {
 
             async function GameController_addGame(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"AddGame"},
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"addGameDTO"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -347,7 +356,7 @@ export function RegisterRoutes(app: Router) {
 
             async function GameController_updateGame(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"EditGame"},
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"editGameDTO"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -496,7 +505,7 @@ export function RegisterRoutes(app: Router) {
 
             async function ConsoleController_createConsole(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
-                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"ConsoleDTO"},
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"addConsoleDTO"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
@@ -587,7 +596,7 @@ export function RegisterRoutes(app: Router) {
             async function ConsoleController_updateConsole(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
                     id: {"in":"path","name":"id","required":true,"dataType":"double"},
-                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"ConsoleDTO"},
+                    requestBody: {"in":"body","name":"requestBody","required":true,"ref":"consoleDTO"},
             };
 
             // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa

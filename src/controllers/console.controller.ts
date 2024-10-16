@@ -1,26 +1,26 @@
 import { Controller, Get, Post, Delete, Route, Path, Body, Tags, Patch } from "tsoa";
 import { consoleService } from "../services/console.service";
-import { ConsoleDTO } from "../dto/console.dto";
+import {addConsoleDTO, consoleDTO} from "../dto/consoleDTO";
 import {notFound} from "../error/NotFoundError";
 import {GameService} from "../services/game.service";
 import {ReviewService} from "../services/review.service";
-import {GameDTO} from "../dto/game.dto";
+import {gameDTO} from "../dto/gameDTO";
 
 @Route("consoles")
 @Tags("Consoles")
 export class ConsoleController extends Controller {
   // Récupère toutes les consoles
   @Get("/")
-  public async getAllConsole(): Promise<ConsoleDTO[]> {
+  public async getAllConsole(): Promise<consoleDTO[]> {
     return consoleService.getAllConsoles();
   }
 
   // Récupère une console par ID
   @Get("{id}")
-  public async getConsoleById(@Path() id: number): Promise<ConsoleDTO> {
+  public async getConsoleById(@Path() id: number): Promise<consoleDTO> {
     const console = await consoleService.getConsoleById(id);
     if (!console) {
-      notFound("Console");
+      notFound("Console not found");
     }
     return console;
   }
@@ -28,8 +28,8 @@ export class ConsoleController extends Controller {
   // Crée une nouvelle console
   @Post("/")
   public async createConsole(
-    @Body() requestBody: ConsoleDTO
-  ): Promise<ConsoleDTO> {
+    @Body() requestBody: addConsoleDTO
+  ): Promise<consoleDTO> {
     const { name, manufacturer } = requestBody;
     return consoleService.createConsole(name, manufacturer);
   }
@@ -47,7 +47,7 @@ export class ConsoleController extends Controller {
     await consoleService.deleteConsole(id);
   }
   @Get("{id}/games")
-  public async getGamesByConsoleId(@Path() id: number): Promise<GameDTO[]> {
+  public async getGamesByConsoleId(@Path() id: number): Promise<gameDTO[]> {
     return GameService.getGamesByConsoleId(id);
   }
 
@@ -55,9 +55,14 @@ export class ConsoleController extends Controller {
   @Patch("{id}")
   public async updateConsole(
     @Path() id: number,
-    @Body() requestBody: ConsoleDTO
-  ): Promise<ConsoleDTO | null> {
+    @Body() requestBody: consoleDTO
+  ): Promise<consoleDTO | null> {
     const { name, manufacturer } = requestBody;
-    return consoleService.updateConsole(id, name, manufacturer);
+    const console = consoleService.updateConsole(id, name, manufacturer);
+    if(!console) {
+        notFound("Console not found");
+    }else {
+      return consoleService.updateConsole(id, name, manufacturer);
+    }
   }
 }

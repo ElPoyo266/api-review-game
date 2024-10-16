@@ -1,14 +1,14 @@
-import {AddReviewDTO, ReviewDTO, UpdateReviewDTO} from "../dto/review.dto";
+import {addReviewDTO, reviewDTO, updateReviewDTO} from "../dto/reviewDTO";
 import {Review} from "../models/review.model";
 export class ReviewService {
-    public static async getReviews(id: number): Promise<ReviewDTO[]> {
+    public static async getReviews(id: number): Promise<reviewDTO[]> {
         return await Review.findAll({ where: { id: id } });
     }
-    public static async getAllReviews(): Promise<ReviewDTO[]> {
+    public static async getAllReviews(): Promise<reviewDTO[]> {
         return await Review.findAll();
     }
 
-    public static async addReview(addReviewDTO: AddReviewDTO): Promise<ReviewDTO> {
+    public static async addReview(addReviewDTO: addReviewDTO): Promise<reviewDTO> {
         if(addReviewDTO.rating <0 || addReviewDTO.rating > 11) {
             throw  new Error("Rating must be between 0 and 10");
         }
@@ -29,7 +29,7 @@ export class ReviewService {
             game_id: review.game_id
         };
     }
-    public static async updateReview(updateReviewDTO: UpdateReviewDTO): Promise<ReviewDTO> {
+    public static async updateReview(updateReviewDTO: updateReviewDTO): Promise<reviewDTO> {
         if(updateReviewDTO.rating <0 || updateReviewDTO.rating > 11) {
             throw  new Error("Rating must be between 0 and 10");
         }
