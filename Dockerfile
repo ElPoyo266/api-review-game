@@ -1,26 +1,29 @@
-# Utiliser une image de base officielle Node.js
+# Use the official Node.js image as the base image
 FROM node:18
 
-# Définir le répertoire de travail dans le conteneur
+# Set the working directory
 WORKDIR /app
 
-# Copier le fichier de configuration pnpm-lock.yaml et package.json
+# Copy the package.json and pnpm-lock.yaml files
 COPY pnpm-lock.yaml package.json ./
 
-# Installer pnpm
+# Install pnpm globally
 RUN npm install -g pnpm
 
-# Installer les dépendances du projet
+# Install project dependencies
 RUN pnpm install
 
-# Copier le reste des fichiers du projet
+# Install TypeScript globally
+RUN pnpm add -g typescript
+
+# Copy the rest of the application code
 COPY . .
 
-# Compiler le projet TypeScript
+# Compile the TypeScript project
 RUN pnpm build
 
-# Exposer le port sur lequel l'application va tourner
+# Expose the port on which the application will run
 EXPOSE 3000
 
-# Démarrer l'application
-CMD ["pnpm", "start"]
+# Start the application
+CMD ["node", "dist/app.js"]
